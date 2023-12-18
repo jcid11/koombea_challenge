@@ -35,9 +35,8 @@ void main() {
     userBloc = MockUserBloc(homeService: homeService);
   });
 
-  testWidgets('It loads everything on screen', (WidgetTester tester) async {
+  testWidgets('loads RawMaterialButton', (WidgetTester tester) async {
     when(() => homeBloc.state).thenReturn(const HomeState());
-    // when(authBloc.state).thenReturn(AuthenticationAuthenticated());
     await tester.runAsync(() async =>
         mockNetworkImagesFor(() async => await tester.pumpWidget(MaterialApp(
           home: MultiBlocProvider(
