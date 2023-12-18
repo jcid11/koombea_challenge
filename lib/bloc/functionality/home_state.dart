@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../models/user_model.dart';
+import '../../models/user_model.dart';
 
 
 enum AddUserStatus { initial, loading, loaded, failed }
@@ -8,13 +8,11 @@ enum AddUserStatus { initial, loading, loaded, failed }
 enum DeleteUserStatus { initial, loading, success, failed }
 
 class HomeState extends Equatable {
-  final List<UserModel>? userList;
   final AddUserStatus addUserStatus;
   final DeleteUserStatus deleteUserStatus;
 
   const HomeState(
       {
-        this.userList,
       this.addUserStatus = AddUserStatus.initial,
       this.deleteUserStatus = DeleteUserStatus.initial});
 
@@ -33,10 +31,10 @@ class HomeState extends Equatable {
       );
 }
 
-class GetUserListLoading extends HomeState{}
-
-class GetUserListSuccess extends HomeState{
-  const GetUserListSuccess(List<UserModel> userList):super(userList: userList);
-}
-class GetUserListFailed extends HomeState{}
+// class GetUserListLoading extends HomeState{}
+//
+// class GetUserListSuccess extends HomeState{
+//   const GetUserListSuccess(List<UserModel> userList):super(userList: userList);
+// }
+// class GetUserListFailed extends HomeState{}
 

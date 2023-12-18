@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:koombea_test/bloc/home_event.dart';
-import 'package:koombea_test/bloc/home_state.dart';
+import 'package:koombea_test/bloc/functionality/home_event.dart';
+import 'package:koombea_test/bloc/functionality/home_state.dart';
 import 'package:koombea_test/models/user_model.dart';
 import 'package:koombea_test/utils/alert_dialog.dart';
 
-import '../../bloc/home_bloc.dart';
+import '../../bloc/functionality/home_bloc.dart';
+import '../../bloc/user/user_bloc.dart';
+import '../../bloc/user/user_event.dart';
 
 class UserDetailScreen extends StatelessWidget {
   final int index;
@@ -24,7 +26,7 @@ class UserDetailScreen extends StatelessWidget {
         } else if (state.deleteUserStatus == DeleteUserStatus.success) {
           Navigator.pop(context);
           Navigator.pop(context);
-          BlocProvider.of<HomeBloc>(context).add(GetUserListEvent());
+          BlocProvider.of<UserBloc>(context).add(GetUserListEvent());
         } else if (state.deleteUserStatus == DeleteUserStatus.failed) {
           Navigator.pop(context);
           failDialog(context);
@@ -46,16 +48,19 @@ class UserDetailScreen extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Hero(
-              tag: index,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  userModel.image,
-                  width: 180,
-                  height: 180,
-                  filterQuality: FilterQuality.medium,
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: ()=>Navigator.pop(context),
+              child: Hero(
+                tag: index,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    userModel.image,
+                    width: 180,
+                    height: 180,
+                    filterQuality: FilterQuality.medium,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

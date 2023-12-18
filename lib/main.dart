@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:koombea_test/bloc/home_bloc.dart';
+import 'package:koombea_test/bloc/functionality/home_bloc.dart';
+import 'package:koombea_test/bloc/user/user_bloc.dart';
+import 'package:koombea_test/service/home_service.dart';
 import 'package:koombea_test/ui/home_page.dart';
 
 void main() {
-  runApp(BlocProvider(create: (_)=>HomeBloc(),child: const MyApp(),));
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (_)=>HomeBloc(homeService: HomeService())),
+    BlocProvider(create: (_)=>UserBloc(homeService: HomeService())),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +19,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

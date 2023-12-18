@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:koombea_test/bloc/home_event.dart';
-import 'package:koombea_test/bloc/home_state.dart';
+import 'package:koombea_test/bloc/functionality/home_event.dart';
+import 'package:koombea_test/bloc/functionality/home_state.dart';
+import 'package:koombea_test/bloc/user/user_bloc.dart';
 import 'package:koombea_test/utils/alert_dialog.dart';
 
-import '../../bloc/home_bloc.dart';
+import '../../bloc/functionality/home_bloc.dart';
+import '../../bloc/user/user_event.dart';
 
 class AddUserScreen extends StatefulWidget {
   const AddUserScreen({Key? key}) : super(key: key);
@@ -29,7 +31,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
         if (state.addUserStatus == AddUserStatus.loaded) {
           Navigator.pop(context);
           Navigator.pop(context);
-          BlocProvider.of<HomeBloc>(context).add(GetUserListEvent());
+          BlocProvider.of<UserBloc>(context).add(GetUserListEvent());
         }
         if (state.addUserStatus == AddUserStatus.failed) {
           Navigator.pop(context);

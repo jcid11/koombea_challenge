@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:koombea_test/bloc/home_event.dart';
-import 'package:koombea_test/bloc/home_state.dart';
+import 'package:koombea_test/bloc/user/user_bloc.dart';
+import 'package:koombea_test/bloc/user/user_state.dart';
 import 'package:koombea_test/ui/add_user/add_user_screen.dart';
 import 'package:koombea_test/ui/user_detail/user_detail_screen.dart';
 
-import '../../bloc/home_bloc.dart';
+import '../../bloc/user/user_event.dart';
 import '../../models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,12 +15,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Future.microtask(
-        () => BlocProvider.of<HomeBloc>(context).add(GetUserListEvent()));
+        () => BlocProvider.of<UserBloc>(context).add(GetUserListEvent()));
     // TODO: implement initState
     super.initState();
   }
@@ -40,19 +39,19 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('These are all the users'),
         centerTitle: true,
       ),
-      body: BlocBuilder<HomeBloc, HomeState>(
+      body: BlocBuilder<UserBloc, UserState>(
         builder: (BuildContext context, state) {
-          if (state is GetUserListLoading) {
+          if (state is UserListLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is GetUserListFailed) {
+          if (state is UserListFailed) {
             return const Center(
               child: Text('Something has fail here'),
             );
           }
-          if (state is GetUserListSuccess) {
+          if (state is UserListSuccess) {
             List<UserModel> userList = state.userList!;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
